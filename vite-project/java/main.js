@@ -1,24 +1,18 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const slotMachine = [
+  { number: 1, item: "Cherry", prize: 10, image: "cherry.jpg" },
+  { number: 2, item: "Lemon", prize: 5, image: "lemon.jpg" },
+  { number: 3, item: "Orange", prize: 7, image: "orange.jpg" },
+  { number: 4, item: "Bell", prize: 15, image: "bell.jpg" },
+  { number: 5, item: "Diamond", prize: 50, image: "diamond.jpg" },
+  { number: 6, item: "Plum", prize: 8, image: "plum.jpg" },
+  { number: 7, item: "Bar", prize: 25, image: "bar.png" },
+  { number: 8, item: "7", prize: 500, image: "7.jpg" },
+  { number: 9, item: "Watermelon", prize: 30, image: "watermelon.jpg" },
+];
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const randomIndex = Math.floor(Math.random() * slotMachine.length);
+const randomItem = slotMachine[randomIndex];
 
-setupCounter(document.querySelector('#counter'))
+console.log(
+  `You got item #${randomItem.number}: ${randomItem.item} with a prize of $${randomItem.prize}`
+);
