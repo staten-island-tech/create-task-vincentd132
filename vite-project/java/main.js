@@ -10,9 +10,32 @@ const slotMachine = [
   { number: 9, item: "Watermelon", prize: 30, image: "watermelon.jpg" },
 ];
 
-const randomIndex = Math.floor(Math.random() * slotMachine.length);
-const randomItem = slotMachine[randomIndex];
+const button = document.getElementById("random");
+const resultDiv = document.getElementById("slotResult");
+const imageDiv = document.getElementById("slotImage");
 
-console.log(
-  `You got item #${randomItem.number}: ${randomItem.item} with a prize of $${randomItem.prize}`
-);
+button.addEventListener("click", function () {
+  if (spinCount < 3) {
+    const randomIndex = Math.floor(Math.random() * slotMachine.length);
+    const randomItem = slotMachine[randomIndex];
+    if (randomItem.item === "7") {
+      resultDiv.innerHTML = `You got a ${randomItem.item}! Prize: $${randomItem.prize}`;
+      imageDiv.innerHTML = `<img src="${randomItem.image}" alt="${randomItem.item}">`;
+    } else {
+      resultDiv.innerHTML = `You got a ${randomItem.item}. Try again!`;
+      imageDiv.innerHTML = "";
+    }
+    spinCount++;
+    if (spinCount === 3) {
+      button.disabled = true;
+      resultDiv.innerHTML += `<br>You have finished all 3 spins! Click reset to play again.`;
+    }
+  }
+});
+
+function resetGame() {
+  spinCount = 0;
+  resultDiv.innerHTML = "";
+  imageDiv.innerHTML = "";
+  button.disabled = false;
+}
