@@ -1,3 +1,5 @@
+let spinCount = 0;
+
 const slotMachine = [
   { number: 1, item: "Cherry", prize: 10, image: "cherry.jpg" },
   { number: 2, item: "Lemon", prize: 5, image: "lemon.jpg" },

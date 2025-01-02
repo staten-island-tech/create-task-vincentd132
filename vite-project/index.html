@@ -1,18 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>SLOT MACHINE </title>
-  </head>
-  <h1>Slot Machine</h1>
-  <body>
-    <div id="app"></div>
-    <button id="random">Spin</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slot Machine Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Slot Machine Game</h1>
     <div id="slotResult"></div>
     <div id="slotImage"></div>
-    <script type="module" src="./java/main.js"></script>
-  </body>
+    <button id="random">Spin</button>
+    <button onclick="resetGame()">Reset</button>
+  </div>
+
+  <script src="main.js"></script>
+</body>
 </html>
