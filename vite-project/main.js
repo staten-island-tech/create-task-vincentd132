@@ -27,3 +27,13 @@ async function spin() {
     await new Promise((resolve) => setTimeout(resolve, duration * 100));
   }
 }
+
+function init(firstInit = true, groups = 1, duration = 1) {
+  for (const door of doors) {
+    if (firstInit) {
+      door.dataset.spinned = "0";
+    } else if (door.dataset.spinned === "1") {
+      return;
+    }
+  }
+}
