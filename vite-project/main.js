@@ -15,6 +15,7 @@ const slotMachine = [
 ];
 
 const lines = document.querySelectorAll(".line");
+const boxes = document.querySelectorAll(".box"); // Change 'doors' to 'boxes'
 document.querySelector("#random").addEventListener("click", spin);
 document.querySelector("#reseter").addEventListener("click", init);
 
@@ -29,11 +30,61 @@ async function spin() {
 }
 
 function init(firstInit = true, groups = 1, duration = 1) {
-  for (const door of doors) {
+  for (const box of boxes) {
     if (firstInit) {
-      door.dataset.spinned = "0";
-    } else if (door.dataset.spinned === "1") {
+      box.dataset.spinned = "0";
+    } else if (box.dataset.spinned === "1") {
       return;
     }
   }
+
+  const items = slotMachine.map((slot) => slot.item);
+  const pool = firstInit ? ["❓"] : shuffle(items);
+
+  for (const box of boxes) {
+    const boxesContainer = box.querySelector(".boxes");
+    const boxesClone = boxesContainer.cloneNode(false);
+
+    boxesClone.addEventListener(
+      "transitionstart",
+      function () {
+        box.dataset.spinned = "1";
+        this.querySelectorAll(".box").forEach((box) => {
+          box.style.filter = "blur(1px)";
+        });
+      },
+      { once: true }
+    );
+
+    boxesClone.addEventListener(
+      "transitionend",
+      function () {
+        this.querySelectorAll(".box").forEach((box, index) => {
+          box.style.filter = "blur(0)";
+          if (index > 0) this.removeChild(box);
+        });
+      },
+      { once: true }
+    );
+
+    for (let i = pool.length - 1; i >= 0; i--) {
+      const boxItem = document.createElement("div");
+      boxItem.classList.add("box");
+      boxItem.style.width = box.clientWidth + "px";
+      boxItem.style.height = box.clientHeight + "px";
+      boxItem.textContent = pool[i];
+      boxesClone.appendChild(boxItem);
+    }
+
+    box.appendChild(boxesClone);
+  }
+}
+
+function shuffle(arr) {
+  let shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
